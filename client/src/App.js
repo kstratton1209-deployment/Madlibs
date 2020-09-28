@@ -13,23 +13,10 @@ function App() {
   return (
     <div className="container">
     <h1>Madlibs</h1>
-    {/* <Link className = "btn btn-info mr-3" to="/">Home</Link> */}
-
-      
-    {/* <h4 className = "my-3">We have quotes by:</h4> */}
     <Router className = "my-3">
-     <Home path="/"/>
-     <Camp path="/camp"/>
-
-
-
+      <Home path="/"/>
+      <Camp path="/camp"/>
     </Router>
-
-
-        
-
-
-
     </div>
   );
 }

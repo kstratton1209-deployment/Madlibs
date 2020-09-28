@@ -22,7 +22,6 @@ return(
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Get started</a></li>
                                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">How to play</a></li>
-                                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -92,7 +91,7 @@ return(
                     <section class="page-section bg-primary text-white mb-0" id="about">
                         <div class="container">
                             {/* <!-- About Section Heading--> */}
-                            <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+                            <h2 class="page-section-heading text-center text-uppercase text-white">How to play</h2>
                             {/* <!-- Icon Divider--> */}
                             <div class="divider-custom divider-light">
                                 <div class="divider-custom-line"></div>
@@ -101,8 +100,8 @@ return(
                             </div>
                             {/* <!-- About Section Content--> */}
                             <div class="row">
-                                <div class="col-lg-4 ml-auto"><p class="lead">Mad Libs is a phrasal template word game which consists of one player prompting others for a list of words to substitute for blanks in a story before reading aloud. The game is frequently played as a party game or as a pastime.</p></div>
-                                <div class="col-lg-4 mr-auto"><p class="lead">The game was invented in the United States, and more than 110 million copies of Mad Libs books have been sold since the series was first published in 1958.</p></div>
+                                <div class="col-lg-4 ml-auto"><p class="lead">Welcome to Madlibs! An interactive game for you and a friend. Pick an adventure above, and then separately fill out the fields. </p></div>
+                                <div class="col-lg-4 mr-auto"><p class="lead">Once you'be both submitted your words, you'll see your final, combined paragraph! Without knowing what your friend has entered, your final narrative is sure to take you by surprise. </p></div>
                             </div>
                             {/* <!-- About Section Button--> */}
                             <div class="text-center mt-4">

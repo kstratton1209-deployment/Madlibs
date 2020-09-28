@@ -93,16 +93,18 @@ const Camp = props => {
         checkIfComplete();
         }
 
+
+
     const addPlayerTwo = (e) => {
         setPlayerTwoComplete(true);
+        console.log("adding player one...")
         e.preventDefault()
-        console.log("adding player two...")
         let wordArray = [word12, word13, word14, word15, word16, word17, word19, word20, word21, word22]
-        setPlayerTwo(wordArray)
+        setPlayerTwo(wordArray);
         console.log("player two word array" + wordArray);
-        // setTwoSocket();
+        // setOneSocket();
         checkIfComplete();
-    }
+        }
 
 
     
@@ -120,9 +122,11 @@ const Camp = props => {
                             </button>
                             <div class="collapse navbar-collapse" id="navbarResponsive">
                                 <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Get started</a></li>
-                                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">How to play</a></li>
-                                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
+                                    {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Get started</a></li> */}
+                                    <Link class="nav-link py-3 px-0 px-lg-3 mx-lg-1 rounded js-scroll-trigger text-white" to="/">Get started</Link>
+
+                                    <Link class="nav-link py-3 px-0 px-lg-3 mx-lg-1 rounded js-scroll-trigger text-white" to="/">How to play</Link>
+                                   
                                 </ul>
                             </div>
                         </div>

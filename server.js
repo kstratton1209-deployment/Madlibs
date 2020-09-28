@@ -13,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 var paragraph = []
+var paragraphOne = []
+var paragraphTwo = []
 
 
 io.on("connection", socket => {
@@ -22,11 +24,22 @@ io.on("connection", socket => {
     socket.on("addToParagraphOne",data => {
         console.log("the data is in para one" + data.one)
         for (let i = 0; i < data.one.length; i ++) {
-            paragraph.push(data.one[i])
+            paragraphOne.push(data.one[i])
         }
-        if (paragraph.length === 21) {
-            io.emit("updateParagraph",paragraph);
-            paragraph.splice(0,paragraph.length)
+        if (paragraphOne.length === 11 && paragraphTwo.length === 10) {
+            for (let i = 0; i < paragraphOne.length; i ++) {
+                paragraph.push(paragraphOne[i])
+            }
+            for (let i = 0; i < paragraphTwo.length; i ++) {
+                paragraph.push(paragraphTwo[i])
+            }
+            console.log("inside double if statement paragraph is " + paragraph)
+       
+        io.emit("updateParagraph",paragraph);
+        paragraph.splice(0,paragraph.length)
+        paragraph.splice(0,paragraphOne.length)
+        paragraph.splice(0,paragraphTwo.length)
+
         }
         console.log(paragraph)
     }),
@@ -34,11 +47,22 @@ io.on("connection", socket => {
     socket.on("addToParagraphTwo",data => {
         console.log("the data is in para two" + data.two)
         for (let i = 0; i < data.two.length; i ++) {
-            paragraph.push(data.two[i])
+            paragraphTwo.push(data.two[i])
         }
-        if (paragraph.length === 21) {
-            io.emit("updateParagraph",paragraph);
-            paragraph.splice(0,paragraph.length)
+        if (paragraphOne.length === 11 && paragraphTwo.length === 10) {
+            for (let i = 0; i < paragraphOne.length; i ++) {
+                paragraph.push(paragraphOne[i])
+            }
+            for (let i = 0; i < paragraphTwo.length; i ++) {
+                paragraph.push(paragraphTwo[i])
+            }
+            console.log("inside double if statement paragraph is " + paragraph)
+       
+        io.emit("updateParagraph",paragraph);
+        paragraph.splice(0,paragraph.length)
+        paragraph.splice(0,paragraphOne.length)
+        paragraph.splice(0,paragraphTwo.length)
+
         }
         console.log(paragraph)
 
