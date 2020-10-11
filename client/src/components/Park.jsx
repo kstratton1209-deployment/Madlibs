@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 
 
-const Camp = props => {
+const Park = props => {
 
     const [socket] = useState(() => io(":8000"));
 
@@ -24,36 +24,32 @@ const Camp = props => {
     const [word13, setWord13] = useState("")
     const [word14, setWord14] = useState("")
     const [word15, setWord15] = useState("")
-    const [word16, setWord16] = useState("")
-    const [word17, setWord17] = useState("")
-    const [word19, setWord19] = useState("")
-    const [word20, setWord20] = useState("")
-    const [word21, setWord21] = useState("")
-    const [word22, setWord22] = useState("")
+
+
 
     const [playerOne, setPlayerOne]=useState([])
     const [playerTwo, setPlayerTwo]=useState([])
 
-    // const [playerOneComplete, setPlayerOneComplete] = useState(false)
-    // const [playerTwoComplete, setPlayerTwoComplete] = useState(false)
+    const [playerOneComplete, setPlayerOneComplete] = useState(false)
+    const [playerTwoComplete, setPlayerTwoComplete] = useState(false)
     const [paragraph,setParagraph] = useState([])
 
 
     useEffect(() => {
         console.log("use effect is running")
         socket.on("welcome", data => console.log(data));
-        socket.on("updateParagraph", data => setParagraph(data))
+        socket.on("updateParagraphPark", data => setParagraph(data))
         console.log(paragraph)
         return () => socket.disconnect(true)
 
     },[socket,paragraph])
 
     useEffect(() => {
-        socket.emit("addToParagraphOne",{one: playerOne})
+        socket.emit("addToParagraphOnePark",{one: playerOne})
     },[playerOne])
 
     useEffect(() => {
-        socket.emit("addToParagraphTwo",{two: playerTwo})
+        socket.emit("addToParagraphTwoPark",{two: playerTwo})
     },[playerTwo])
 
 
@@ -67,27 +63,43 @@ const Camp = props => {
     //     socket.emit("addToParagraphTwo",{two: playerTwo})
     // }
 
+    const setFinalSocket = () => {
+        socket.emit("finalSubmission")
+    }
+
+    const checkIfComplete = () => {
+        if (playerOneComplete === true && playerTwoComplete === true) {
+            setFinalSocket();
+            console.log("both players have submitted")
+        }
+        else {
+            console.log("both players have not submitted")
+        }
+        
+    }
 
     const addPlayerOne = (e) => {
-        // setPlayerOneComplete(true);
+        setPlayerOneComplete(true);
         console.log("adding player one...")
         e.preventDefault()
-        let wordArray = [word1, word2, word3, word4, word5, word6, word7, word8, word9, word10, word11]
+        let wordArray = [word1, word2, word3, word4, word5, word6, word7]
         setPlayerOne(wordArray);
         console.log("player one word array" + wordArray);
         // setOneSocket();
+        checkIfComplete();
         }
 
 
 
     const addPlayerTwo = (e) => {
-        // setPlayerTwoComplete(true);
+        setPlayerTwoComplete(true);
         console.log("adding player one...")
         e.preventDefault()
-        let wordArray = [word12, word13, word14, word15, word16, word17, word19, word20, word21, word22]
+        let wordArray = [word8, word9, word10, word11, word12, word13, word14, word15]
         setPlayerTwo(wordArray);
         console.log("player two word array" + wordArray);
         // setOneSocket();
+        checkIfComplete();
         }
 
 
@@ -129,78 +141,50 @@ const Camp = props => {
                                             <form novalidate="novalidate" onSubmit={addPlayerOne}>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Adjective</label>
-                                                        <input class="form-control" id="word1" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord1(e.target.value)}/>
+                                                        <label>Noun</label>
+                                                        <input class="form-control" id="word1" type="text" placeholder="Noun" required="required" data-validation-required-message="Please enter a noun." onChange={e => setWord1(e.target.value)}/>
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls">
-                                                        <label>Person</label>
-                                                        <input class="form-control" id="word2" type="text" placeholder="Person" required="required" data-validation-required-message="Please enter a person." onChange={e => setWord2(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Place</label>
-                                                        <input class="form-control" id="word3" type="text" placeholder="Place" required="required" data-validation-required-message="Please enter a place." onChange={e => setWord3(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Piece of clothing</label>
-                                                        <input class="form-control" id="word4" type="text" placeholder="Piece of clothing" required="required" data-validation-required-message="Please enter a piece of clothing." onChange={e => setWord4(e.target.value)} />
+                                                        <label>Article of clothing</label>
+                                                        <input class="form-control" id="word2" type="text" placeholder="Article of clothing" required="required" data-validation-required-message="Please enter an article of clothin." onChange={e => setWord2(e.target.value)}/>
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
                                                         <label>Adjective</label>
-                                                        <input class="form-control" id="word5" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord5(e.target.value)} />
+                                                        <input class="form-control" id="word3" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord3(e.target.value)}/>
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
                                                         <label>Adjective</label>
-                                                        <input class="form-control" id="word6" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord6(e.target.value)} />
+                                                        <input class="form-control" id="word4" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord4(e.target.value)} />
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Adjective</label>
-                                                        <input class="form-control" id="word7" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord7(e.target.value)} />
+                                                        <label>Noun</label>
+                                                        <input class="form-control" id="word5" type="text" placeholder="Noun" required="required" data-validation-required-message="Please enter a noun." onChange={e => setWord5(e.target.value)} />
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Adjective</label>
-                                                        <input class="form-control" id="word8" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord8(e.target.value)} />
+                                                        <label>Plural noun</label>
+                                                        <input class="form-control" id="word6" type="text" placeholder="Plural noun" required="required" data-validation-required-message="Please enter a plural noun." onChange={e => setWord6(e.target.value)} />
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Song title</label>
-                                                        <input class="form-control" id="word9" type="text" placeholder="Song title" required="required" data-validation-required-message="Please enter a song title." onChange={e => setWord9(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Food</label>
-                                                        <input class="form-control" id="word10" type="text" placeholder="Food" required="required" data-validation-required-message="Please enter a food." onChange={e => setWord10(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Adjective</label>
-                                                        <input class="form-control" id="word11" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord11(e.target.value)}/>
+                                                        <label>Noun</label>
+                                                        <input class="form-control" id="word7" type="text" placeholder="Noun)" required="required" data-validation-required-message="Please enter a noun." onChange={e => setWord7(e.target.value)} />
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
@@ -223,17 +207,46 @@ const Camp = props => {
                                         <div class="col-lg-8 mx-auto">
                                             {/* <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.--> */}
                                             <form id="contactForm" name="sentMessage" novalidate="novalidate" onSubmit={addPlayerTwo}>
-                                                <div class="control-group">
+                                            <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls">
-                                                        <label>Past tense verb</label>
-                                                        <input class="form-control" id="word12" type="text" placeholder="Past tense verb" required="required" data-validation-required-message="Please enter a past tense verb." onChange={e => setWord12(e.target.value)}/>
+                                                        <label>Adjective</label>
+                                                        <input class="form-control" id="word8" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord8(e.target.value)}/>
+                                                        <p class="help-block text-danger"></p>
+                                                    </div>
+                                                </div>
+                       
+                                                <div class="control-group">
+                                                    <div class="form-group floating-label-form-group controls mb-0">
+                                                        <label>Type of food</label>
+                                                        <input class="form-control" id="word9" type="text" placeholder="Type of food" required="required" data-validation-required-message="Please enter a type of food." onChange={e => setWord9(e.target.value)}/>
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Noun</label>
-                                                        <input class="form-control" id="word13" type="text" placeholder="Noun" required="required" data-validation-required-message="Please enter a noun." onChange={e => setWord13(e.target.value)}/>
+                                                        <label>Type of liquid</label>
+                                                        <input class="form-control" id="word10" type="text" placeholder="Type o liquid" required="required" data-validation-required-message="Please enter a type of liquid" onChange={e => setWord10(e.target.value)}/>
+                                                        <p class="help-block text-danger"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <div class="form-group floating-label-form-group controls mb-0">
+                                                        <label>Part of the body</label>
+                                                        <input class="form-control" id="word11" type="text" placeholder="Part of the body" required="required" data-validation-required-message="Please enter a part of the body." onChange={e => setWord11(e.target.value)}/>
+                                                        <p class="help-block text-danger"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <div class="form-group floating-label-form-group controls mb-0">
+                                                        <label>Plural Noun</label>
+                                                        <input class="form-control" id="word12" type="text" placeholder="Plural noun" required="required" data-validation-required-message="Please enter a plural noun." onChange={e => setWord12(e.target.value)}/>
+                                                        <p class="help-block text-danger"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <div class="form-group floating-label-form-group controls mb-0">
+                                                        <label>Plural Noun</label>
+                                                        <input class="form-control" id="word13" type="text" placeholder="Plural noun" required="required" data-validation-required-message="Please enter a plural noun." onChange={e => setWord13(e.target.value)}/>
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
@@ -246,50 +259,8 @@ const Camp = props => {
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Past tense verb</label>
-                                                        <input class="form-control" id="word15" type="text" placeholder="Past tense verb" required="required" data-validation-required-message="Please enter a past tense verb." onChange={e => setWord15(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Past tense verb</label>
-                                                        <input class="form-control" id="word16" type="text" placeholder="Past tense verb" required="required" data-validation-required-message="Please enter a past tense verb." onChange={e => setWord16(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
                                                         <label>Noun</label>
-                                                        <input class="form-control" id="word17" type="text" placeholder="Noun" required="required" data-validation-required-message="Please enter a noun." onChange={e => setWord17(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Verb</label>
-                                                        <input class="form-control" id="word19" type="text" placeholder="Verb" required="required" data-validation-required-message="Please enter a verb." onChange={e => setWord19(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Verb</label>
-                                                        <input class="form-control" id="word20" type="text" placeholder="Verb" required="required" data-validation-required-message="Please enter a verb." onChange={e => setWord20(e.target.value)} />
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Verb</label>
-                                                        <input class="form-control" id="word21" type="text" placeholder="Verb" required="required" data-validation-required-message="Please enter a verb." onChange={e => setWord21(e.target.value)}/>
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls mb-0">
-                                                        <label>Adjective</label>
-                                                        <input class="form-control" id="word22" type="text" placeholder="Adjective" required="required" data-validation-required-message="Please enter an adjective." onChange={e => setWord22(e.target.value)}/>
+                                                        <input class="form-control" id="word15" type="text" placeholder="Plural noun" required="required" data-validation-required-message="Please enter a noun." onChange={e => setWord15(e.target.value)}/>
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
@@ -306,17 +277,17 @@ const Camp = props => {
                        
                     </div>
 
-                    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-4">Letters from Camp</h2>
+                    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-4">A day at the amusement Park</h2>
                       
-                        { paragraph.length === 21 ? 
-                        <h3>It was a {paragraph[0]} summer day.{paragraph[1]} and I were excited to go camping at {paragraph[2]}. It was my first time going there. I packed my favorite {paragraph[3]}. It is {paragraph[4]} and {paragraph[5]}. Perfect for camping! On the road we went in our {paragraph[6]}, {paragraph[7]} van! We were listening to {paragraph[8]} all the way down. The drive was about 5 hours but it was so worth it. When we got there we unpacked the van. I could smell {paragraph[9]} being cooked. It smelled {paragraph[10]}. I {paragraph[11]} to the room I was staying in with my {paragraph[12]}. The next thing I knew, a {paragraph[13]} came and {paragraph[14]} on the bed. I heard my mom scream, "Get off the bed!" and I {paragraph[15]} outside. I saw a {paragraph[14]}- it was {paragraph[16]}. Over the next few days I got to {paragraph[17]}, {paragraph[18]}, and {paragraph[19]}. My camping trip was {paragraph[20]}.</h3> : null
-                        }
+                        { paragraph.length === 15 ? 
+                        <h3> 
+                        An amusement park is always fun to visit on a hot summer {paragraph[0]}. When you get there, you can wear your {paragraph[1]} and go for a swim. And there are lots of {paragraph[2]} things to eat. You can start off with a/an {paragraph[3]}-dog on a/an {paragraph[4]} with mustard, relish, and {paragraph[5]} on it. Then you can have a buttered ear of {paragraph[6]} with a nice {paragraph[7]} slice of {paragraph[8]} and a big bottle of cold {paragraph[9]}. When you are full, it's time to go on the roller coaster, which should settle your {paragraph[10]}. Other amusement park rides are the bumper cars, which have little {paragraph[11]} that you drive and run into other {paragraph[12]}, and the merry-go-round, where you can sit on a big {paragraph[13]} and try to grab the gold {paragraph[14]} as you ride past it.</h3> : null }
 
         </div>
     )
 }
 
-export default Camp;
+export default Park;
 
 
 
